@@ -25,9 +25,21 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(),
       body: Container(
         child: Center(
-          child: Text(
-            "sample",
-            style: TextStyle(fontSize: 40),
+          child: Column(
+            children: <Widget>[
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+              Text("flutter"),
+            ],
           ),
         ),
       ),

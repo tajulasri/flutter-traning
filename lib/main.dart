@@ -1,3 +1,4 @@
+import 'package:contact_manager/pages/AboutPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -57,14 +58,26 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: false,
         backgroundColor: Colors.white,
         actions: <Widget>[
-          Icon(
-            Icons.search,
-            color: Colors.grey,
-            size: 30,
-          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => AboutPage(),
+                  fullscreenDialog: true,
+                ),
+              );
+            },
+            child: Icon(
+              Icons.search,
+              color: Colors.grey,
+              size: 30,
+            ),
+          )
         ],
       ),
       body: Container(
+        color: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 25),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -80,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 item,
                 style: TextStyle(
                   fontSize: 18,
+                  color: item == selectedItem ? Colors.black : Colors.grey,
                   fontWeight: FontWeight.bold,
                 ),
               ),

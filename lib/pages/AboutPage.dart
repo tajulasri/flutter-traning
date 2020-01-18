@@ -5,9 +5,9 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Icon(Icons.info_outline),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("About"),
       ),
     );
   }

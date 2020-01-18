@@ -9,6 +9,7 @@ class ContactApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "flutter demo",
       theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(),
@@ -16,8 +17,15 @@ class ContactApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key key}) : super(key: key);
+class MyHomepage extends StatefulWidget {
+  MyHomepage({Key key}) : super(key: key);
+
+  @override
+  _MyHomepageState createState() => _MyHomepageState();
+}
+
+class _MyHomepageState extends State<MyHomepage> {
+  List<String> _groups = ["All", "Family", "Friends", "Work", "Neighbour"];
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +50,25 @@ class MyHomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Icon(Icons.home),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: _groups.map((item) {
+            return GestureDetector(
+              onTap: () {
+                print(item.toString());
+              },
+              child: Text(
+                item,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          }).toList(),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(),
     );

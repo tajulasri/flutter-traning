@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:contact_manager/pages/AboutPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(ContactApp());
 
@@ -29,11 +32,22 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> _groups = ["All", "Family", "Friends", "Work", "Neighbour"];
 
   String selectedItem = "";
+  var _contacts;
+
+  Future<String> _getJson() async {
+    return await DefaultAssetBundle.of(context).loadString("assets/contacts.json");
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    _getJson().then((onValue) {
+      setState(() {
+        _contacts = jsonDecode(onValue);
+      });
+    });
 
     setState(() {
       selectedItem = _groups.first;
@@ -44,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(_contacts);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

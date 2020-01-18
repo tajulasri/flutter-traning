@@ -131,12 +131,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   } else {
                     List<dynamic> _contact = jsonDecode(snapshot.data);
-                    return Container(
-                      height: 1000,
+                    return Expanded(
                       child: ListView.builder(
-                        itemCount: snapshot.data.length,
+                        physics: ScrollPhysics(),
+                        itemCount: _contact.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Text("sample");
+                          return Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              children: <Widget>[
+                                CircleAvatar(
+                                  backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/23.jpg"),
+                                ),
+                              ],
+                            ),
+                          );
                         },
                       ),
                     );

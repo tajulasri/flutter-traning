@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:contact_manager/pages/AboutPage.dart';
+import 'package:contact_manager/pages/ContactPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,48 @@ class ContactApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "flutter demo",
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(),
+      home: MainPage(),
+    );
+  }
+}
+
+class MainPage extends StatefulWidget {
+  MainPage({Key key}) : super(key: key);
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  List<dynamic> _pages = [MyHomePage(), ContactPage(), AboutPage()];
+
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contacts),
+            title: Text("Contacts"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            title: Text("About"),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -58,8 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(_contacts);
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -141,8 +181,37 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: EdgeInsets.all(10),
                             child: Row(
                               children: <Widget>[
-                                CircleAvatar(
-                                  backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/23.jpg"),
+                                ClipRRect(
+                                  child: Image.network(
+                                    "https://randomuser.me/api/portraits/men/23.jpg",
+                                    height: 45,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        _contact[index]['full_name'],
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        _contact[index]['email'],
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        _contact[index]['position'],
+                                        style: TextStyle(fontSize: 11),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -155,7 +224,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(),
     );
   }
 }

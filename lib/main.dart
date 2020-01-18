@@ -17,15 +17,29 @@ class ContactApp extends StatelessWidget {
   }
 }
 
-class MyHomepage extends StatefulWidget {
-  MyHomepage({Key key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key}) : super(key: key);
 
   @override
-  _MyHomepageState createState() => _MyHomepageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomepageState extends State<MyHomepage> {
+class _MyHomePageState extends State<MyHomePage> {
   List<String> _groups = ["All", "Family", "Friends", "Work", "Neighbour"];
+
+  String selectedItem = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    setState(() {
+      selectedItem = _groups.first;
+    });
+
+    print("init state value ${selectedItem}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +71,10 @@ class _MyHomepageState extends State<MyHomepage> {
           children: _groups.map((item) {
             return GestureDetector(
               onTap: () {
-                print(item.toString());
+                setState(() {
+                  selectedItem = item;
+                });
+                print(selectedItem);
               },
               child: Text(
                 item,

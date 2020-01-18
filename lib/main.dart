@@ -93,28 +93,56 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 25),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: _groups.map((item) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedItem = item;
-                });
-                print(selectedItem);
-              },
-              child: Text(
-                item,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: item == selectedItem ? Colors.black : Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: _groups.map((item) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = item;
+                      });
+                      print(selectedItem);
+                    },
+                    child: Text(
+                      item,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: item == selectedItem ? Colors.black : Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-            );
-          }).toList(),
+            ),
+            FutureBuilder(
+                initialData: null,
+                future: _getJson(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return Container(
+                      height: 300,
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  } else {
+                    List<dynamic> _contact = jsonDecode(snapshot.data);
+                    return Container(
+                      height: 1000,
+                      child: ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Text("sample");
+                        },
+                      ),
+                    );
+                  }
+                })
+          ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(),

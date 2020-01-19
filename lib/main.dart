@@ -16,7 +16,7 @@ class ContactApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "flutter demo",
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.orange),
       home: MainPage(),
     );
   }
@@ -30,20 +30,19 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<dynamic> _pages = [MyHomePage(), ContactPage(), AboutPage()];
-
   int _currentIndex = 0;
+
+  List<dynamic> _pages = [MyHomePage(), ContactPage(), AboutPage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -56,8 +55,13 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
             title: Text("About"),
-          ),
+          )
         ],
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }
@@ -200,11 +204,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        _contact[index]['email'],
-                                        style: TextStyle(fontSize: 12),
-                                      ),
+                                      // SizedBox(height: 5),
+                                      // Text(
+                                      //   _contact[index]['email'],
+                                      //   style: TextStyle(fontSize: 12),
+                                      // ),
                                       SizedBox(height: 5),
                                       Text(
                                         _contact[index]['position'],
